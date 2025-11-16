@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormattedDate from "./FormattedDate.jsx";
+import WeatherInfo from "./WeatherInfo.jsx";
 import "./Weather.css";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
   function handleResponse(response) {
     setWeatherData({
@@ -20,61 +21,40 @@ export default function Weather(props) {
     });
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "3oa2b4640a831a6act8f0d75a77730e5";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
   if (weatherData.ready) {
     return (
-      <div className="search">
-        <form className="search-form">
+      <div className="Weather">
+        <form className="search-form" onSubmit={handleSubmit}>
           <input
             type="search"
             placeholder="Enter a city..."
             className="search-input"
+            onChange={handleCityChange}
           />
           <input type="submit" className="search-button" />
         </form>
         <hr />
-        <div>
-          <div>
-            <h1 className="weather-app-city">{weatherData.city}</h1>
-            <ul className="weather-app-description">
-              <li>
-                <FormattedDate date={weatherData.date} />
-              </li>
-              <li className="text-capitalize">{weatherData.description}</li>
-            </ul>
-            <div className="weather-app-data">
-              <div className="weather-app-temperature-container">
-                <div className="weather-app-icon">
-                  <img
-                    src={weatherData.iconUrl}
-                    alt={weatherData.description}
-                  />
-                </div>
-                <span className="weather-app-temperature">
-                  {Math.round(weatherData.temperature)}
-                </span>
-                <span className="weather-app-temperature-unit">°F</span>
-              </div>
-
-              <ul className="weather-app-details">
-                <li>
-                  Humidity: <strong>{weatherData.humidity}%</strong>
-                </li>
-                <li>
-                  Wind: <strong>{weatherData.wind} mph</strong>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <WeatherInfo data={weatherData} />
         <hr />
       </div>
     );
   } else {
-    const apiKey = "3oa2b4640a831a6act8f0d75a77730e5";
-    let city = "Gresham";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${props.defaultCity}&key=${apiKey}&units=imperial`;
-    axios.get(apiUrl).then(handleResponse);
-
+    search();
     return "Loading...";
   }
 }
