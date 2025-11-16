@@ -1,0 +1,28 @@
+.weather-forecast {
+  display: flex;
+  justify-content: space-around;
+}
+
+.weather-forecast-date {
+  text-align: center;
+  color: #1f2029;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.weather-forecast-icon {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+}
+
+.weather-forecast-temperatures {
+  display: flex;
+  text-align: center;
+  color: #324577;
+  margin-top: 10px;
+}
+
+.weather-forecast-temperature {
+  padding: 0 10px;
+}
