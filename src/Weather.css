@@ -69,10 +69,15 @@ ul {
   font-size: 48px;
 }
 
+.weather-temperature {
+  display: flex;
+}
+
 .weather-app-temperature-unit {
   display: flex;
   font-size: 20px;
   margin-top: 15px;
+  margin-left: 5px;
 }
 
 .weather-forecast {
