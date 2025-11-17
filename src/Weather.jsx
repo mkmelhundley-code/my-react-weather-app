@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo.jsx";
+import Forecast from "./Forecast.jsx";
 import "./Weather.css";
 
 export default function Weather(props) {
@@ -50,6 +51,7 @@ export default function Weather(props) {
         <hr />
         <WeatherInfo data={weatherData} />
         <hr />
+        <Forecast />
       </div>
     );
   } else {
