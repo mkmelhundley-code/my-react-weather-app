@@ -28,7 +28,6 @@ export default function Weather(props) {
 
   function handleCityChange(event) {
     setCity(event.target.value);
-    console.log(city);
   }
 
   function search() {
@@ -50,7 +49,7 @@ export default function Weather(props) {
           <input type="submit" className="search-button" />
         </form>
         <hr />
-        <WeatherInfo data={weatherData} />
+        <WeatherInfo data={weatherData.city} />
         <hr />
         <Forecast city={city} />
       </div>
